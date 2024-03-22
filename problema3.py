@@ -45,6 +45,5 @@ arbol = None
 for numero in numeros:
     arbol = InsertarEnArbolTrinario(arbol, numero)
 
-print("Arbol trinario:")
 print(imprimirArbol(arbol))
 
