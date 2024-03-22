@@ -13,7 +13,7 @@ class ArbolTrinario:
     def __init__(self, numero):
         self.numero = numero
         self.izquierda = None
-        self.centro = []
+        self.centro = None
         self.derecha = None
 
 def InsertarEnArbolTrinario(arbol, numero):
@@ -24,19 +24,17 @@ def InsertarEnArbolTrinario(arbol, numero):
     elif numero > arbol.numero:
         arbol.derecha = InsertarEnArbolTrinario(arbol.derecha, numero)
     else:
-        arbol.centro.append([])
+        if arbol.centro is None:
+            arbol.centro = ArbolTrinario(numero)
+        else:
+            arbol.centro = InsertarEnArbolTrinario(arbol.centro, numero)
     return arbol
 
 def imprimirArbol(arbol):
-    if arbol:
-        print("[", arbol.numero, end="")
-        imprimirArbol(arbol.izquierda)
-        if arbol.centro:
-            print(", []", end="")
-            for centro in arbol.centro:
-                imprimirArbol(centro)
-        imprimirArbol(arbol.derecha)
-        print("]", end="")
+    if arbol is None:
+        return []
+    else:
+        return [arbol.numero, imprimirArbol(arbol.izquierda), imprimirArbol(arbol.centro), imprimirArbol(arbol.derecha)]
 
 def leer_numeros():
     numeros = input().split()
@@ -48,4 +46,5 @@ for numero in numeros:
     arbol = InsertarEnArbolTrinario(arbol, numero)
 
 print("Arbol trinario:")
-imprimirArbol(arbol)
+print(imprimirArbol(arbol))
+
